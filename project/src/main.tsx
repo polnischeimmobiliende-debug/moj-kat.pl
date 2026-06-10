@@ -1,10 +1,27 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+import { Layout } from './components/Layout';
+import { Route } from './components/Router';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+import { SearchPage } from './pages/SearchPage';
+import { PropertyPage } from './pages/PropertyPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+
+import { AuthProvider } from './hooks/useAuth';
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Layout>
+        <Route pattern="/" component={() => <SearchPage />} />
+
+        <Route
+          pattern="/property/:id/:slug"
+          component={({ id }) => <PropertyPage id={id} />}
+        />
+
+        <Route pattern="/login" component={() => <LoginPage />} />
+        <Route pattern="/register" component={() => <RegisterPage />} />
+      </Layout>
+    </AuthProvider>
+  );
+}
