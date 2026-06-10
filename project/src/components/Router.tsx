@@ -1,7 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
 
-type Route = { path: string; params: Record<string, string> };
-
 function getPath(): string {
   return window.location.pathname || '/';
 }
@@ -52,8 +50,6 @@ export function Route({
     };
 
     window.addEventListener('popstate', handler);
-
-    // initial sync (refresh support)
     handler();
 
     return () => {
